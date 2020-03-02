@@ -9,6 +9,7 @@ services:
 
 before_install:
   - docker info
+  - cat /etc/os-release
   - sudo apk update && apk upgrade && apk add bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
