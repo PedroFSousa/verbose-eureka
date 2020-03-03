@@ -5,12 +5,17 @@ language: node_js
 image: docker:latest
 
 services:
-  - docker:dind
+  # docker:dind doesn't exist for travis ci
+  - docker
 
 before_install:
   - docker info
   - cat /etc/os-release
-  - sudo apt update && sleep 5 && sudo apt upgrade && sleep 5 && sudo apt install bash grep
+  - sudo apt update
+  - sleep 5
+  - sudo apt upgrade
+  - sleep 5
+  - sudo apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
 build-master:
