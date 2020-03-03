@@ -6,13 +6,13 @@ services:
   # docker:dind doesn't exist for travis ci
   - docker
 
-name: Log in to registry
-uses: actions/docker/login@master
-env:
-  DOCKER_REGISTRY_URL: docker.pkg.github.com
-  DOCKER_USERNAME: ${{ github.actor }}
-  DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-if: github.event_name == 'push'
+# name: Log in to registry
+# uses: actions/docker/login@master
+# env:
+#   DOCKER_REGISTRY_URL: docker.pkg.github.com
+#   DOCKER_USERNAME: ${{ github.actor }}
+#   DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+# if: github.event_name == 'push'
   
 
 before_install:
@@ -20,7 +20,7 @@ before_install:
   - cat /etc/os-release
   - sudo apt update
   # ---- command failing ----
-  - sudo apt upgrade
+  # - sudo apt upgrade
   # ---- command failing ----
   - sudo apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
