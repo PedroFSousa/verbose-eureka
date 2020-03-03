@@ -20,7 +20,7 @@ before_install:
   - cat /etc/os-release
   - sudo apt update
   # ---- command failing ----
-  # - sudo apt upgrade
+  - sudo apt upgrade
   # ---- command failing ----
   - sudo apt install bash grep
   # ---- command failing ----
