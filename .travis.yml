@@ -2,6 +2,14 @@ language: node_js
 
 image: docker:latest
 
+- name: Log in to registry
+  uses: actions/docker/login@master
+  env:
+    DOCKER_REGISTRY_URL: docker.pkg.github.com
+    DOCKER_USERNAME: ${{ github.actor }}
+    DOCKER_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  if: github.event_name == 'push'
+  
 services:
   # docker:dind doesn't exist for travis ci
   - docker
@@ -20,6 +28,8 @@ build-master:
   stage: build
   script:
     - docker version
+    
+    # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
     - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
     - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
     - docker push $CI_REGISTRY_IMAGE:$VERSION
