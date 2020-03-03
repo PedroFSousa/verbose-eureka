@@ -12,9 +12,9 @@ before_install:
   - docker info
   - cat /etc/os-release
   - sudo apt update
-  - sleep 5
+  # ---- command failing ----
   - sudo apt upgrade
-  - sleep 5
+  # ---- command failing ----
   - sudo apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
