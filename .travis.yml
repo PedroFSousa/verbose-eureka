@@ -19,9 +19,6 @@ before_install:
   - docker info
   - cat /etc/os-release
   - sudo apt update
-  # ---- command failing ----
-  # - sudo apt upgrade
-  # ---- command failing ----
   - sudo apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
