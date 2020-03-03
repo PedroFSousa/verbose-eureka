@@ -10,7 +10,7 @@ services:
 before_install:
   - docker info
   - cat /etc/os-release
-  - apt update && apt upgrade && apt install bash grep
+  - apt update && sleep 5 && apt upgrade && sleep 5 && apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
 build-master:
