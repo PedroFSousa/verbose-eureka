@@ -5,7 +5,7 @@ language: node_js
 image: docker:latest
 
 services:
-  - docker
+  - docker:dind
 
 before_install:
   - docker info
