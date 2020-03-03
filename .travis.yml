@@ -1,4 +1,4 @@
-sudo: required
+# sudo: required
 
 language: node_js
 
@@ -10,7 +10,7 @@ services:
 before_install:
   - docker info
   - cat /etc/os-release
-  - apt update && sleep 5 && apt upgrade && sleep 5 && apt install bash grep
+  - sudo apt update && sleep 5 && sudo apt upgrade && sleep 5 && sudo apt install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $CI_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
 build-master:
