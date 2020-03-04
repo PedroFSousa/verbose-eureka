@@ -9,12 +9,9 @@ services:
 
 addons:
   apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-
-dist: trusty
+    - sudo apt update
+    - sudo apt upgrade
+    - sudo apt install bash grep
 
 # name: Log in to registry
 # uses: actions/docker/login@master
