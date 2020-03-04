@@ -54,6 +54,7 @@ build-dev:
 # - echo "TESTAR O MAKE"
 script:
   - docker version
+  # echoes
   - echo "INSIDE THE LAST SCRIPT, NOT INTENTIONAL!!!"
   - echo $DOCKER_USERNAME
   - echo $DOCKER_PASSWORD
