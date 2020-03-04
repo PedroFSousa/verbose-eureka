@@ -64,5 +64,7 @@ script:
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
   # previous CI_REGISTRY = TRAVIS_REPO_SLUG
   - echo $TRAVIS_REPO_SLUG
-  - docker build -t $TRAVIS_REPO_SLUG:$VERSION .
-  - docker push $TRAVIS_REPO_SLUG:$VERSION
+  - echo $DOCKER_REPO
+  - echo $DOCKER_TAG
+  - docker build -t $DOCKER_REPO:$VERSION .
+  - docker push $DOCKER_REPO:$VERSION
