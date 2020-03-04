@@ -58,7 +58,7 @@ script:
   - echo "INSIDE THE LAST SCRIPT, NOT INTENTIONAL!!!"
   - echo $DOCKER_USERNAME
   - echo $DOCKER_PASSWORD
-  - CI_REGISTRY="index.docker.io"
+  - CI_REGISTRY="docker.com"
   # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
