@@ -6,6 +6,12 @@ services:
   # docker:dind doesn't exist for travis ci
   - docker
 
+branches:
+  only:
+    - master
+    - master-schedule
+    - dev
+
 before_install:
   - docker info
   - sudo apt-get update
@@ -13,7 +19,8 @@ before_install:
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   - echo $VERSION
 
-build-master:
+if: branch = master
+# build-master:
   stage: build
   script:
     - docker version
@@ -28,11 +35,13 @@ build-master:
     - master
     - master-schedule
   
-build-dev:
+if: branch = dev
+# build-dev:
   stage: build
   script:
     - docker version
-    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker login -u DOCKER_USERNAME -p $DOCKER_PASSWORD
     - docker build -t $CI_REGISTRY_IMAGE:$VERSION-dev .
     - docker push $CI_REGISTRY_IMAGE:$VERSION-dev
   only:
