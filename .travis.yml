@@ -19,7 +19,7 @@ before_install:
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   - echo $VERSION
 
-if: branch = master
+branch = "master"
 # build-master:
   stage: build
   script:
@@ -35,7 +35,7 @@ if: branch = master
     - master
     - master-schedule
   
-if: branch = dev
+branch = "dev"
 # build-dev:
   stage: build
   script:
