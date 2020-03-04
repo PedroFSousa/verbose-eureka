@@ -5,38 +5,13 @@ image: docker
 services:
   # docker:dind doesn't exist for travis ci
   - docker
-  # set a service for mysql to try and prevent mysql upgrade to fail
-  - mysql
-
-# trying to prevent mysql upgrade to fail
-addons:
-  sudo: true
-  apt:
-    sources:
-    - mysql-5.7-trusty
-    packages:
-    - mysql-server
-    - mysql-client
-
-# dist: trusty  
 
 before_install:
   - docker info
-  # - cat /etc/os-release
-  # test mysql
-  # - composer self-update
-  # - composer clear-cache
-  # test mysql
   - sudo apt-get update
-  # ---- command failing ----
-  # - sudo apt upgrade
-  # ---- command failing ----
   - sudo apt-get install bash grep
-  # checking version on commit message
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   - echo $VERSION
-  # - sudo apt list --upgradable
-  # - sudo apt-get upgrade
 
 build-master:
   stage: build
@@ -48,7 +23,7 @@ build-master:
     - docker login -u DOCKER_USERNAME -p $DOCKER_PASSWORD
     - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
     - docker push $CI_REGISTRY_IMAGE:$VERSION
-    - bundle exec rake
+    # - bundle exec rake
   only:
     - master
     - master-schedule
