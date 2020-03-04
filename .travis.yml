@@ -57,7 +57,7 @@ script:
   - echo "INSIDE THE LAST SCRIPT, NOT INTENTIONAL!!!"
   - echo $DOCKER_USERNAME
   - echo $DOCKER_PASSWORD
-  - CI_REGISTRY="https://hub.docker.com"
+  - CI_REGISTRY="index.docker.io"
   # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
   # - docker login -u DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
