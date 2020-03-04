@@ -62,7 +62,7 @@ script:
   # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
-
   # previous CI_REGISTRY = TRAVIS_REPO_SLUG
+  - echo $TRAVIS_REPO_SLUG
   - docker build -t $TRAVIS_REPO_SLUG:$VERSION .
   - docker push $TRAVIS_REPO_SLUG:$VERSION
