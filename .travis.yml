@@ -9,9 +9,9 @@ services:
 
 addons:
   apt:
-    - sudo apt update
-    - sudo apt upgrade
-    - sudo apt install bash grep
+    - update
+    - upgrade
+    - install bash grep
 
 # name: Log in to registry
 # uses: actions/docker/login@master
