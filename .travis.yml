@@ -5,16 +5,16 @@ image: docker
 services:
   # docker:dind doesn't exist for travis ci
   - docker
-  - mysql
+  # - mysql
 
-addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
+# addons:
+#   apt:
+#     sources:
+#       - mysql-5.7-trusty
+#     packages:
+#       - mysql-server
 
-dist: trusty
+# dist: trusty
 
 # name: Log in to registry
 # uses: actions/docker/login@master
