@@ -60,7 +60,7 @@ script:
   - CI_REGISTRY="https://hub.docker.com"
   # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
   # - docker login -u DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
-  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD" $CI_REGISTRY
+  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
   - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
   - docker push $CI_REGISTRY_IMAGE:$VERSION
   # - bundle exec rake
