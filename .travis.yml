@@ -60,9 +60,8 @@ script:
   - echo $DOCKER_PASSWORD
   - CI_REGISTRY="index.docker.io"
   # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
+  # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
   - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
-  # novo teste docker login
-  - ${echo $DOCKER_USERNAME & echo $DOCKER_PASSWORD} | sudo docker login $CI_REGISTRY
   - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
   - docker push $CI_REGISTRY_IMAGE:$VERSION
   # - bundle exec rake
