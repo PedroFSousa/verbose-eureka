@@ -6,11 +6,11 @@ services:
   # docker:dind doesn't exist for travis ci
   - docker
 
-branches:
-  only:
-    - master
-    - master-schedule
-    - dev
+# branches:
+#   only:
+#     - master
+#     - master-schedule
+#     - dev
 
 before_install:
   - docker info
