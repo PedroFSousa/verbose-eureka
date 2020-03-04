@@ -51,7 +51,7 @@ build-dev:
 
 
 # eliminar isto depois
-- echo "TESTAR O MAKE"
+# - echo "TESTAR O MAKE"
 script:
   - docker version
   
