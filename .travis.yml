@@ -5,6 +5,16 @@ image: docker
 services:
   # docker:dind doesn't exist for travis ci
   - docker
+  - mysql
+
+addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+
+dist: trusty
 
 # name: Log in to registry
 # uses: actions/docker/login@master
@@ -17,7 +27,11 @@ services:
 
 before_install:
   - docker info
-  - cat /etc/os-release
+  # - cat /etc/os-release
+  # test mysql
+  - composer self-update
+  - composer clear-cache
+  # test mysql
   - sudo apt update
   # ---- command failing ----
   # - sudo apt upgrade
