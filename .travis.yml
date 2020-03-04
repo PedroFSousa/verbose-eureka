@@ -7,11 +7,11 @@ services:
   - docker
   - mysql
 
-addons:
-  apt:
-    - update
-    - upgrade
-    - install bash grep
+# addons:
+#   apt:
+#     - update
+#     - upgrade
+#     - install bash grep
 
 # name: Log in to registry
 # uses: actions/docker/login@master
@@ -26,19 +26,19 @@ before_install:
   - docker info
   # - cat /etc/os-release
   # test mysql
-  - composer self-update
-  - composer clear-cache
+  # - composer self-update
+  # - composer clear-cache
   # test mysql
-  - sudo apt update
+  - sudo apt-get update
   # ---- command failing ----
   # - sudo apt upgrade
   # ---- command failing ----
-  - sudo apt install bash grep
+  - sudo apt-get install bash grep
   # ---- command failing ----
   # - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   # ---- command failing ----
-  - sudo apt list --upgradable
-  - sudo apt upgrade
+  # - sudo apt list --upgradable
+  - sudo apt-get upgrade
 
 build-master:
   stage: build
