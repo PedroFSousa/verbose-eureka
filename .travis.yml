@@ -5,8 +5,10 @@ image: docker
 services:
   # docker:dind doesn't exist for travis ci
   - docker
-  # - mysql
+  # set a service for mysql to try and prevent mysql upgrade to fail
+  - mysql
 
+# trying to prevent mysql upgrade to fail
 addons:
   apt:
     sources:
