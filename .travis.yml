@@ -12,8 +12,11 @@ before_install:
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   - echo $VERSION
 
-
 stages:
+  - build-master
+  - build-dev
+
+deploy:
   - stage: build-master
     if: branch = master
       - script:
@@ -23,7 +26,7 @@ stages:
         - docker push $DOCKER_HUB_SLUG:$VERSION
     else: skip
 
-  - stage: build-master
+  - stage: build-dev
     if: branch = master
       - script:
         - docker version
