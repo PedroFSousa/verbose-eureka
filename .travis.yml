@@ -34,7 +34,7 @@ docker_login:
 
 
 jobs:
-  - if: $TRAVIS_BRANCH = master
+  if: $TRAVIS_BRANCH = master
     include:
       - stage: build-master
         before_script: *docker_login
@@ -45,7 +45,7 @@ jobs:
           - docker build -t $DOCKER_HUB_SLUG:$VERSION .
           - docker push $DOCKER_HUB_SLUG:$VERSION
           # - echo "Docker builds image and pushes everythin as master"
-  - if: $TRAVIS_BRANCH = dev
+  if: $TRAVIS_BRANCH = dev
     include:
       - stage: build-dev
         before_script: *docker_login
