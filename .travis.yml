@@ -16,7 +16,7 @@ stages:
   - build-master
   - build-dev
 
-deploy:
+script:
   - stage: build-master
     if: branch = master
       - script:
