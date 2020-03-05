@@ -18,18 +18,18 @@ branches:
     - dev
 
 script:
-  - case $TRAVIS_BRANCH in master)
-      script:
-        - docker version
-        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-        - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-        - docker push $DOCKER_HUB_SLUG:$VERSION
-    dev)
-      script:
-        - docker version
-        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-        - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-        - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+  if: $TRAVIS_BRANCH = master
+    script:
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+      - docker push $DOCKER_HUB_SLUG:$VERSION
+  if: $TRAVIS_BRANCH = dev
+    script:
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
+      - docker push $DOCKER_HUB_SLUG:$VERSION-dev
 
 
 # script:
