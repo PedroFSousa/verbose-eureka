@@ -49,18 +49,16 @@ build-dev:
   except:
     - schedules
 
-
 # eliminar isto depois
 # - echo "TESTAR O MAKE"
 script:
-  - sudo docker version
+  - docker version
   - CI_REGISTRY="docker.com"
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
-  - sudo docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD $CI_REGISTRY
+  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD $CI_REGISTRY
   # previous CI_REGISTRY = TRAVIS_REPO_SLUG
   - echo $TRAVIS_REPO_SLUG
   - echo $DOCKER_HUB_SLUG
-  - sudo docker build -t $DOCKER_HUB_SLUG:$VERSION .
-  # - docker push $DOCKER_HUB_SLUG:$VERSION
-  - sudo docker images
-  - sudo docker push testegithub/veruka-test:$VERSION
+  - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+  - docker images
+  - docker push $DOCKER_HUB_SLUG:$VERSION
