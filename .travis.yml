@@ -27,7 +27,7 @@ build-master:
     
     # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
     # - docker login -u DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
     - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
     - docker push $CI_REGISTRY_IMAGE:$VERSION
     # - bundle exec rake
@@ -41,7 +41,7 @@ build-dev:
   script:
     - docker version
     # - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
-    - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
     - docker build -t $CI_REGISTRY_IMAGE:$VERSION-dev .
     - docker push $CI_REGISTRY_IMAGE:$VERSION-dev
   only:
@@ -54,14 +54,9 @@ build-dev:
 # - echo "TESTAR O MAKE"
 script:
   - docker version
-  # echoes
-  - echo "INSIDE THE LAST SCRIPT, NOT INTENTIONAL!!!"
-  - echo $DOCKER_USERNAME
-  - echo $DOCKER_PASSWORD
   - CI_REGISTRY="docker.com"
-  # -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY WRONG
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
-  - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $CI_REGISTRY
+  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD $CI_REGISTRY
   # previous CI_REGISTRY = TRAVIS_REPO_SLUG
   - echo $TRAVIS_REPO_SLUG
   - echo $DOCKER_HUB_SLUG
