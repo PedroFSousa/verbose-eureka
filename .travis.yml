@@ -54,9 +54,9 @@ build-dev:
 script:
   - docker version
   # - CI_REGISTRY="docker.com"
-  - CI_REGISTRY="hub.docker.com/repository/docker/"
+  # - CI_REGISTRY="hub.docker.com/repository/docker/"
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
-  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD $CI_REGISTRY
+  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
   # previous CI_REGISTRY = TRAVIS_REPO_SLUG
   - echo $TRAVIS_REPO_SLUG
   - echo $DOCKER_HUB_SLUG
