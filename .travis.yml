@@ -16,6 +16,7 @@ stages:
   - build-master
   - build-dev
 
+#dev test
 script:
   - stage: build-master
     if: branch = master
