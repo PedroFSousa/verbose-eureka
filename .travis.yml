@@ -17,9 +17,9 @@ before_install:
 
 stages:
   - name: build-master
-    if: branch == master
+    if: $TRAVIS_BRANCH == master
   - name: build-dev
-    if: branch == dev
+    if: $TRAVIS_BRANCH == dev
 
 docker_login:
   before_script: 
