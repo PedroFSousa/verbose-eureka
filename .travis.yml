@@ -17,21 +17,25 @@ before_install:
 #     - master
 #     - dev
 
+# script:
+#   if: $TRAVIS_BRANCH = "master"
+#   # - echo branch
+#   # script:
+#     - docker version
+#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+#     - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+#     - docker push $DOCKER_HUB_SLUG:$VERSION
+#   if: $TRAVIS_BRANCH = "dev"
+#   # - echo branch
+#   # script:
+#     - docker version
+#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+#     - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
+#     - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+
 script:
-  if: $TRAVIS_BRANCH = "master"
-  # - echo branch
-  # script:
-    - docker version
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-    - docker push $DOCKER_HUB_SLUG:$VERSION
-  if: $TRAVIS_BRANCH = "dev"
-  # - echo branch
-  # script:
-    - docker version
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-    - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+  - if [ $TRAVIS_BRANCH == dev ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION-dev . && docker push $DOCKER_HUB_SLUG:$VERSION-dev; fi
+  - if [ $TRAVIS_BRANCH == master ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION; fi
 
 
 # script:
