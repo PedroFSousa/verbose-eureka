@@ -42,7 +42,7 @@ before_install:
 #     - schedules
 
 deploy:
-  if: $TRAVIS_BRANCH = master
+  if: $TRAVIS_BRANCH == master
   - provider: script
     script: echo "BUILDING IN MASTER"
     on:
@@ -52,7 +52,7 @@ deploy:
           - master-schedule
       tags: true
 
-  if: $TRAVIS_BRANCH = dev
+  if: $TRAVIS_BRANCH == dev
   - provider: script
     script: echo "BUILDING IN dev"
     on:
