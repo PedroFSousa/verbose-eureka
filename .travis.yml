@@ -35,11 +35,11 @@ jobs:
     script:
       # - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
       # - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-      - echo "Docker builds image and pushes everythin"
-  - stage: build-master
+      - echo "Docker builds image and pushes everythin as master"
+  - stage: build-dev
     before_script: *docker_login
     name: build docker
     script:
       # - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
       # - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-      - echo "Docker builds image and pushes everythin"
+      - echo "Docker builds image and pushes everything as dev"
