@@ -12,26 +12,26 @@ before_install:
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
   - echo $VERSION
 
-branches:
-  only:
-    - master
-    - dev
+# branches:
+#   only:
+#     - master
+#     - dev
 
-script:
-  if: $TRAVIS_BRANCH = "master"
-  # - echo branch
-  # script:
-  - docker version
-  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-  - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-  - docker push $DOCKER_HUB_SLUG:$VERSION
-  if: $TRAVIS_BRANCH = "dev"
-  # - echo branch
-  # script:
-  - docker version
-  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-  - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-  - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+# script:
+#   if: $TRAVIS_BRANCH = "master"
+#   # - echo branch
+#   # script:
+#   - docker version
+#   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+#   - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+#   - docker push $DOCKER_HUB_SLUG:$VERSION
+#   if: $TRAVIS_BRANCH = "dev"
+#   # - echo branch
+#   # script:
+#   - docker version
+#   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+#   - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
+#   - docker push $DOCKER_HUB_SLUG:$VERSION-dev
 
 
 # script:
@@ -62,11 +62,11 @@ script:
 #     # except:
 #     #   - schedules
 
-# script:
-#   - docker version
-#   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#   - echo $TRAVIS_REPO_SLUG
-#   - echo $DOCKER_HUB_SLUG
-#   - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-#   - docker images
-#   - docker push $DOCKER_HUB_SLUG:$VERSION
+script:
+  - docker version
+  - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+  - echo $TRAVIS_REPO_SLUG
+  - echo $DOCKER_HUB_SLUG
+  - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+  - docker images
+  - docker push $DOCKER_HUB_SLUG:$VERSION
