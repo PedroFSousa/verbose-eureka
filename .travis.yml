@@ -53,7 +53,7 @@ build-dev:
 # eliminar isto depois
 # - echo "TESTAR O MAKE"
 script:
-  sudo: true
+  require: sudo
   - docker version
   - CI_REGISTRY="docker.com"
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
