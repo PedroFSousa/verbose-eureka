@@ -25,7 +25,10 @@ before_install:
 script:
   # branch = ?
   - echo $TRAVIS_BRANCH
-  - if [ $TRAVIS_BRANCH == dev ]; then echo "WORKS"; fi
+  - if [ $TRAVIS_BRANCH == dev ]; then
+    - echo "WORKS";
+    - echo "STILL WORKS" 
+  - fi
   - docker version
   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
   - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
