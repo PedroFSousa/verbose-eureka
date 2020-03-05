@@ -64,6 +64,6 @@ script:
   # - docker push $DOCKER_HUB_SLUG:$VERSION
   # docker push de com o path diretamente
   - docker images
-  - docker push testegithub/veruka-test:$VERSION
+  - sudo docker push testegithub/veruka-test:$VERSION
   # novo push com tag diferente
 
