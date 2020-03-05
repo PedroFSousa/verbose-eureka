@@ -64,6 +64,7 @@ script:
   # - docker push $DOCKER_HUB_SLUG:$VERSION
   # docker push de com o path diretamente
   - docker images
-  - sudo docker push testegithub/veruka-test:$VERSION
+  - docker push testegithub/veruka-test:$VERSION
+  # - docker push testegithub/veruka-test:$VERSION
   # password do dockerhub foi alterada para não haver stress com special chars
 
