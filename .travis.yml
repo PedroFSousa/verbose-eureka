@@ -1,8 +1,5 @@
 language: node_js
 
-node_js:
-  - "12"
-
 image: docker
 
 services:
@@ -26,6 +23,8 @@ before_install:
 # if: $TRAVIS_BRANCH = "dev"
 #   # - echo $TRAVIS_BRANCH
 script:
+  # branch = ?
+  - echo $TRAVIS_BRANCH
   - docker version
   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
   - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
