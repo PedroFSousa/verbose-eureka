@@ -53,6 +53,7 @@ build-dev:
 # eliminar isto depois
 # - echo "TESTAR O MAKE"
 script:
+  sudo: true
   - docker version
   - CI_REGISTRY="docker.com"
   # foi adicionado o escape character aos caracteres especiais das env DOCKER_USERNAME e DOCKER_PASSWORD
@@ -62,9 +63,5 @@ script:
   - echo $DOCKER_HUB_SLUG
   - docker build -t $DOCKER_HUB_SLUG:$VERSION .
   # - docker push $DOCKER_HUB_SLUG:$VERSION
-  # docker push de com o path diretamente
   - docker images
   - docker push testegithub/veruka-test:$VERSION
-  # - docker push testegithub/veruka-test:$VERSION
-  # password do dockerhub foi alterada para não haver stress com special chars
-
