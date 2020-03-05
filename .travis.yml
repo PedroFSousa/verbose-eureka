@@ -28,8 +28,8 @@ docker_login:
     - echo "Docker logins and does his thing"
 
 jobs:
-  if: $TRAVIS_BRANCH = master
-    include:
+  include:
+    if: $TRAVIS_BRANCH = master
       - stage: build-master
         before_script: *docker_login
         name: build docker
@@ -38,9 +38,7 @@ jobs:
           - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
           - docker build -t $DOCKER_HUB_SLUG:$VERSION .
           - docker push $DOCKER_HUB_SLUG:$VERSION
-          # - echo "Docker builds image and pushes everythin as master"
-  if: $TRAVIS_BRANCH = dev
-    include:
+    if: $TRAVIS_BRANCH = dev
       - stage: build-dev
         before_script: *docker_login
         name: build docker
@@ -49,4 +47,3 @@ jobs:
           - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
           - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
           - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-          # - echo "Docker builds image and pushes everything as dev"
