@@ -29,23 +29,23 @@ docker_login:
 
 jobs:
   include:
-  if: $TRAVIS_BRANCH == master
-  - stage: build-master
-    before_script: *docker_login
-    name: build docker
-    script:
-      - docker version
-      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-      - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-      - docker push $DOCKER_HUB_SLUG:$VERSION
-      # - echo "Docker builds image and pushes everythin as master"
-  if: $TRAVIS_BRANCH == dev
-  - stage: build-dev
-    before_script: *docker_login
-    name: build docker
-    script:
-      - docker version
-      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-      - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-      - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-      # - echo "Docker builds image and pushes everything as dev"
+    if: $TRAVIS_BRANCH = master
+    - stage: build-master
+      before_script: *docker_login
+      name: build docker
+      script:
+        - docker version
+        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+        - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+        - docker push $DOCKER_HUB_SLUG:$VERSION
+        # - echo "Docker builds image and pushes everythin as master"
+    if: $TRAVIS_BRANCH = dev
+    - stage: build-dev
+      before_script: *docker_login
+      name: build docker
+      script:
+        - docker version
+        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+        - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
+        - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+        # - echo "Docker builds image and pushes everything as dev"
