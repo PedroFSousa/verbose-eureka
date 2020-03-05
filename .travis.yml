@@ -27,12 +27,6 @@ docker_login:
     # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
     - echo "Docker logins and does his thing"
 
-    jobs:
-      exclude:
-        - if: branch = master
-          env: TWO=two
-
-
 jobs:
   if: branch = master
     include:
