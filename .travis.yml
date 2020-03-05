@@ -16,7 +16,7 @@ before_install:
 #   - if [ $TRAVIS_BRANCH == master ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION; fi
 
 script:
-  - deploy
+  stage: deploy
 
 jobs:
   include:
