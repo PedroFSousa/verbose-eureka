@@ -23,9 +23,9 @@ install:
       - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
       - docker build -t $DOCKER_HUB_SLUG:$VERSION .
       - docker push $DOCKER_HUB_SLUG:$VERSION
-    branch:
-      - master
-      - master-schedule
+    # branch:
+    #   - master
+    #   - master-schedule
 
   if: branch = "dev"
     script:
@@ -37,10 +37,10 @@ install:
       - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
       - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
       - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-    branch:
-      - dev
-    except:
-      - schedules
+    # branch:
+    #   - dev
+    # except:
+    #   - schedules
 
 # script:
 #   - docker version
