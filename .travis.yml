@@ -43,21 +43,21 @@ before_install:
 
 deploy:
   - provider: script
-    if: $TRAVIS_BRANCH = master
-    script: echo "BUILDING IN MASTER"
-    on:
-      branches:
-        only:
-          - master
-          - master-schedule
-      tags: true
+    - if: $TRAVIS_BRANCH = master
+      script: echo "BUILDING IN MASTER"
+      on:
+        branches:
+          only:
+            - master
+            - master-schedule
+        tags: true
 
-    if: $TRAVIS_BRANCH = dev
-    script: echo "BUILDING IN dev"
-    on:
-      branches:
-        only:
-          - dev
-        except:
-          - master-schedule
-      tags: true
+    - if: $TRAVIS_BRANCH = dev
+      script: echo "BUILDING IN dev"
+      on:
+        branches:
+          only:
+            - dev
+          except:
+            - master-schedule
+        tags: true
