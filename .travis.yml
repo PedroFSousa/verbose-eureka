@@ -10,67 +10,33 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
-  - echo $VERSION
-
-# branches:
-#   only:
-#     - master
-#     - dev
 
 # script:
-#   if: $TRAVIS_BRANCH = "master"
-#   # - echo branch
-#   # script:
-#     - docker version
-#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-#     - docker push $DOCKER_HUB_SLUG:$VERSION
-#   if: $TRAVIS_BRANCH = "dev"
-#   # - echo branch
-#   # script:
-#     - docker version
-#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-#     - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+#   - if [ $TRAVIS_BRANCH == dev ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION-dev . && docker push $DOCKER_HUB_SLUG:$VERSION-dev; fi
+#   - if [ $TRAVIS_BRANCH == master ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION; fi
 
-script:
-  - if [ $TRAVIS_BRANCH == dev ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION-dev . && docker push $DOCKER_HUB_SLUG:$VERSION-dev; fi
-  - if [ $TRAVIS_BRANCH == master ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION; fi
+jobs:
+  - build-master
+  - build-dev
 
+stages:
+  - name: build
+    # if: $TRAVIS_BRANCH = "master"
+    # script: docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION
 
-# script:
-#   build: master
-#     # - docker version
-#     # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     # - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
-#     # - docker push $CI_REGISTRY_IMAGE:$VERSION
-#     - docker version
-#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-#     - docker push $DOCKER_HUB_SLUG:$VERSION
-#     # branch:
-#     #   - master
-#     #   - master-schedule
+build-master:
+  stage: build
+  script:
+    - echo "BUILDING IN MASTER"
+  only:
+    - master
+    - master-schedule
 
-#   build: dev
-#     # - docker version
-#     # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     # - docker build -t $CI_REGISTRY_IMAGE:$VERSION-dev .
-#     # - docker push $CI_REGISTRY_IMAGE:$VERSION-dev
-#     - docker version
-#     - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#     - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-#     - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-#     # branch:
-#     #   - dev
-#     # except:
-#     #   - schedules
-
-# script:
-#   - docker version
-#   - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-#   - echo $TRAVIS_REPO_SLUG
-#   - echo $DOCKER_HUB_SLUG
-#   - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-#   - docker images
-#   - docker push $DOCKER_HUB_SLUG:$VERSION
+build-dev:
+  stage: build
+  script:
+    - echo "BUILDING IN DEV"
+  only:
+    - dev
+  except:
+    - schedules
