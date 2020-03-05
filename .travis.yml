@@ -13,7 +13,7 @@ before_install:
   - echo $VERSION
 
 install:
-  if: branch = "master"
+  if: branch: master
     script:
       # - docker version
       # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
@@ -27,7 +27,7 @@ install:
     #   - master
     #   - master-schedule
 
-  if: branch = "dev"
+  if: branch: dev
     script:
       # - docker version
       # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
