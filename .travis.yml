@@ -23,23 +23,27 @@ stages:
 
 docker_login:
   before_script: 
-    - docker version
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    # - echo "Docker logins and does his thing"
+    # - docker version
+    # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+    - echo "Docker logins and does his thing"
 
 jobs:
   include:
   - stage: build-master
-    before_script: docker_login
+    before_script: *docker_login
     name: build docker
     script:
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
       - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
       - docker push $DOCKER_HUB_SLUG:$VERSION-dev
       # - echo "Docker builds image and pushes everythin as master"
   - stage: build-dev
-    before_script: docker_login
+    before_script: *docker_login
     name: build docker
     script:
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
       - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
       - docker push $DOCKER_HUB_SLUG:$VERSION-dev
       # - echo "Docker builds image and pushes everything as dev"
