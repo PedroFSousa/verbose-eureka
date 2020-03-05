@@ -13,34 +13,36 @@ before_install:
   - echo $VERSION
 
 install:
-  script:
-    # - docker version
-    # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    # - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
-    # - docker push $CI_REGISTRY_IMAGE:$VERSION
-    - docker version
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-    - docker push $DOCKER_HUB_SLUG:$VERSION
-  on:
-    branch:
-      - master
-      - master-schedule
+  if: branch = "master"
+    script:
+      # - docker version
+      # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      # - docker build -t $CI_REGISTRY_IMAGE:$VERSION .
+      # - docker push $CI_REGISTRY_IMAGE:$VERSION
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      - docker build -t $DOCKER_HUB_SLUG:$VERSION .
+      - docker push $DOCKER_HUB_SLUG:$VERSION
+    on:
+      branch:
+        - master
+        - master-schedule
 
-  script:
-    # - docker version
-    # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    # - docker build -t $CI_REGISTRY_IMAGE:$VERSION-dev .
-    # - docker push $CI_REGISTRY_IMAGE:$VERSION-dev
-    - docker version
-    - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-    - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-    - docker push $DOCKER_HUB_SLUG:$VERSION-dev
-  on:
-    branch:
-      - dev
-    except:
-      - schedules
+  if: branch = "dev"
+    script:
+      # - docker version
+      # - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      # - docker build -t $CI_REGISTRY_IMAGE:$VERSION-dev .
+      # - docker push $CI_REGISTRY_IMAGE:$VERSION-dev
+      - docker version
+      - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
+      - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+    on:
+      branch:
+        - dev
+      except:
+        - schedules
 
 # script:
 #   - docker version
