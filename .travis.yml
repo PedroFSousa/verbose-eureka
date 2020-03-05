@@ -65,7 +65,10 @@ before_install:
 
 deploy:
   - provider: script
-    script: echo "testeeeeeeeeeeeeeeeeeeee"
-    on:
-      all_branches: true
-      tags: true
+      script: echo "BUILDING IN MASTER"
+      on:
+        branches:
+          only:
+            - master
+            - master-schedule
+        tags: true
