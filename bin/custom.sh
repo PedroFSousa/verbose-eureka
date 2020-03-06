@@ -1,59 +1,58 @@
 #!/bin/bash
 
-# Configure site name
-drush variable-set -y site_name "$SITE_NAME"
+# Update a Mica form
+update_form () {
+	if [ -f $MICA_DIR/forms/individual-studies/$1.json ]; then
+		mica rest "/config/$1/form-custom" -v -m PUT -mk https://localhost:8445 -ct "application/json;charset=utf-8" -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" < "$MICA_DIR/forms/individual-studies/$1.json" && \
+		echo "Updated forms: $1.json"
+	else
+		echo "No form found for $1"
+	fi
+}
 
-# Configure footer credit
-if [ -n "$FOOTER_CREDIT" ]; then
-  sed -i "s|Powered by|$(eval echo $FOOTER_CREDIT) Powered by|g" $DRUPAL_DIR/sites/all/modules/obiba_mica/obiba_mica.module && \
-  echo "Footer credit was changed"
-fi
+# Wait for Mica to start
+echo "Waiting for Mica to be ready before updating forms..."
+until (mica rest "/config" -m GET -mk https://localhost:8445 -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" > /dev/null); do
+	sleep 5
+done
 
-# Copy modified Drupal files, if any
-if [ -d "/sites" ]; then
-  echo "Synching Drupal files in /var/www/html/sites with /sites..."
-  rsync -ir /sites $DRUPAL_DIR/
-fi
+# Update study/population/DCE forms
+echo "Updating study/population/DCE forms..."
+forms=( "individual-study" "population" "data-collection-event" )
+for form in "${forms[@]}"; do	update_form $form; done
 
-# Enable any custom modules in /modules
-custom_modules=$(find /modules -mindepth 1 -maxdepth 1 -type d -exec bash -c "basename {}" \;)
-if [ "$custom_modules" ]; then
-	for m in $custom_modules; do
-    cp -r /modules/$m $DRUPAL_DIR/sites/all/modules/
-		drush en -y $m
-	done
-  #drush cc all
+# Update search criteria
+echo "Updating search criteria..."
+if [ -f $MICA_DIR/forms/search-criteria/mica_search_criteria.json ]; then
+	mica rest "/config/study/taxonomy" -v -m PUT -mk https://localhost:8445 -ct "application/json;charset=utf-8" -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" < "$MICA_DIR/forms/search-criteria/mica_search_criteria.json" && \
+	echo "Updated search criteria: mica_search_criteria.json"
 else
-	echo "No custom modules found"
+		echo "No custom search criteria found"
 fi
 
-if [ "$ALLOW_ANONYMOUS_STATS" == "no" ]; then
-  # Download and enalbe custom_menu_perms module
-  curl https://ftp.drupal.org/files/projects/custom_menu_perms-7.x-1.0.tar.gz --output custom_menu_perms-7.x-1.0.tar.gz
-  tar -xvf custom_menu_perms-7.x-1.0.tar.gz -C $DRUPAL_DIR/modules
-  chown -R www-data:www-data $DRUPAL_DIR/modules/custom_menu_perms
-  # Fix bug in custom_menu_perms install script
-  sed -i -e ':a;N;$!ba;s/255,\n\t\t\t)/255,\n\t\t\t\t'\''not null'\'' => TRUE,\n\t\t\t)/' $DRUPAL_DIR/modules/custom_menu_perms/custom_menu_perms.install
-  # Enable custom_menu_perms module in Drupal
-  drush en -y custom_menu_perms
+# Add custom Opal credentials
+echo "Adding Opal credentials..."
+creds=$(find $MICA_DIR/opal_creds -type f -name "*.json")
 
-  # Disable anonymous access to variable statistics
-  mysql -h $MYSQL_PORT_3306_TCP_ADDR -u root -p$MYSQL_ROOT_PASSWORD drupal_mica < /disable_anonymous_stats.sql && \
-  echo "Anonymous access to variable statistics is disabled"
-fi 
-
-chown -R www-data:www-data $DRUPAL_DIR
-
-# Run SQL customization script
-if [ -f "/customize.sql" ]; then
-  mysql -h $MYSQL_PORT_3306_TCP_ADDR -u root -p$MYSQL_ROOT_PASSWORD drupal_mica < /customize.sql
+if [ "$creds" ]; then
+	for f in $creds; do
+		creds_json=$(cat $f)
+		# grep -P '"opalUrl".*"https://opal:8443",' $f > /dev/null && grep -P '"username".*"administrator",' $f > /dev/null && f=$(sed "s/INSERT_PASSWORD/$OPAL_ADMINISTRATOR_PASSWORD/g" $f)
+		grep -P '"opalUrl".*"https://opal:8443",' $f > /dev/null && grep -P '"username".*"administrator",' $f > /dev/null && creds_json=$(sed "s/INSERT_PASSWORD/$OPAL_ADMINISTRATOR_PASSWORD/g" $f)
+		echo $creds_json | mica rest /config/opal-credentials -v -m POST -mk https://localhost:8445 -ct "application/json;charset=utf-8" -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" && \
+		echo "Added Opal credentials from file $(basename $f)"
+	done
+else
+	echo "No Opal credentials found"
 fi
 
-# Run Shell customization script
-if [ -f "/customize.sh" ]; then
-  source /customize.sh
-fi
+# Grant 'Reader' perms to the mica-reader group on Mica documents
+mica_docs=( "network" "individual-study" "harmonization-study" "collected-dataset" "harmonized-dataset" "project" "data-access-form" )
+for doc in "${mica_docs[@]}"; do
+	mica rest "/config/$doc/permissions?principal=mica-reader&role=READER&type=GROUP" -m PUT -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" -mk https://localhost:8445
+done
+echo "Granted 'Reader' perms to the mica-reader group on Mica documents"
 
-# Clear all Drupal cache and rebuild menu
-drush cc all
-drush eval 'menu_rebuild();'
+# Re-index taxonomies
+#mica rest /cache/micaConfig -m DELETE -v -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD" -mk https://localhost:8445
+mica rest "/config/_index" -m PUT -mk https://localhost:8445 -u administrator -p "$MICA_ADMINISTRATOR_PASSWORD"
