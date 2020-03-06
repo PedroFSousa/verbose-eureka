@@ -1,0 +1,48 @@
+global:
+  scrape_interval:     30m #15s #scrape_interval and evaluation_interval can not be greather than or equals rate on (promQL/dashboards)
+  evaluation_interval: 30m #15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090'] 
+
+  - job_name: 'cadvisor'
+    dns_sd_configs:
+    - names:
+      - 'tasks.cadvisor'
+      type: 'A'
+      port: 8080
+    metric_relabel_configs:
+      - source_labels: [__name__]
+        regex: '(container_tasks_state|container_memory_failures_total)'
+        action: drop
+      - source_labels: [id]
+        regex: '/system.slice/var-lib-docker-containers.*-shm.mount'
+        action: drop
+
+      - source_labels: ['container_label_system'] 
+        regex: 'Coral'
+        action: keep
+
+  - job_name: 'node-exporter'
+    dns_sd_configs:
+    - names:
+      - 'tasks.node-exporter'
+      type: 'A'
+      port: 9100
+
+    metric_relabel_configs:
+      - source_labels: ['node_env_var']  
+        regex: '(.*)'
+        action: keep
+
+remote_write:
+  - url: "CENTRAL_MONITORING_URL/influxdb/api/v1/prom/write?db=prometheus"
+    basic_auth:
+      username: 'INFLUX_USERNAME'
+      password: 'INFLUX_PASSWORD'
+    tls_config:
+      # Disable validation of the server certificate.
+      insecure_skip_verify: true
+        
