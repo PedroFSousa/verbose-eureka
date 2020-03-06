@@ -21,14 +21,14 @@ stages:
   - name: build-dev
     if: branch = dev
 
-docker_login:
-  before_script:
-    - echo "Docker logins and does his thing"
+# docker_login:
+#   before_script:
+#     - echo "Docker logins and does his thing"
 
 jobs:
   include:
     - stage: build-master
-      before_script: *docker_login
+      # before_script: *docker_login
       name: build docker
       script:
         - docker version
@@ -36,7 +36,7 @@ jobs:
         - docker build -t $DOCKER_HUB_SLUG:$VERSION .
         - docker push $DOCKER_HUB_SLUG:$VERSION
     - stage: build-dev
-      before_script: *docker_login
+      # before_script: *docker_login
       name: build docker
       script:
         - docker version
