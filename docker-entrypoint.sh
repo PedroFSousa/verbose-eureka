@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Adapted from https://github.com/obiba/docker-mica-drupal by INESC TEC
+# Adapted from https://github.com/obiba/docker-mica-drupal
 #
 
 set -e
