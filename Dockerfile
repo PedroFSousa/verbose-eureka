@@ -1,13 +1,7 @@
-FROM obiba/agate:1.4
+FROM docker-registry.inesctec.pt/csig-all/apache-with-certificate:3.2.0
 
-ENV AGATE_DIR=/usr/share/agate
+COPY conf /etc/apache2/conf-available
+COPY html /var/www/html
+COPY scripts /etc/apache2/scripts
 
-COPY ./scripts/wait-for-it.sh /
-
-COPY bin/ /opt/agate/bin/
-RUN [ "/bin/bash", "-c", "mkdir -p $AGATE_DIR/{applications,groups}" ]
-
-COPY ./docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["app"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
