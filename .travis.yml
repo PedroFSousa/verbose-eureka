@@ -11,24 +11,15 @@ before_install:
   - sudo apt-get install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
-# script:
-#   - if [ $TRAVIS_BRANCH == dev ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION-dev . && docker push $DOCKER_HUB_SLUG:$VERSION-dev; fi
-#   - if [ $TRAVIS_BRANCH == master ]; then docker version && docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD && docker build -t $DOCKER_HUB_SLUG:$VERSION . && docker push $DOCKER_HUB_SLUG:$VERSION; fi
-
 stages:
   - name: build-master
     if: branch = master
   - name: build-dev
     if: branch = dev
 
-# docker_login:
-#   before_script:
-#     - echo "Docker logins and does his thing"
-
 jobs:
   include:
     - stage: build-master
-      # before_script: *docker_login
       name: build docker
       script:
         - docker version
@@ -36,7 +27,6 @@ jobs:
         - docker build -t $DOCKER_HUB_SLUG:$VERSION .
         - docker push $DOCKER_HUB_SLUG:$VERSION
     - stage: build-dev
-      # before_script: *docker_login
       name: build docker
       script:
         - docker version
