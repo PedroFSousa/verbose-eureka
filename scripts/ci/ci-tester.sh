@@ -37,7 +37,7 @@ rm -rf coral-tester
 apt install python python3 python3-dev python3-pip curl libffi-dev
 
 pip3 install --upgrade pip
--H pip3 install docker-compose
+pip3 install docker-compose
 
 # cd $BUILDS_DIR
 
