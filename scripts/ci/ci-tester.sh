@@ -13,6 +13,9 @@ wait_for_service () {
   echo -e "$1 is ready!\n"
 }
 
+pwd
+exit 1
+
 # BUILDS_DIR=/builds/coral
 # TRAVIS CI home dir
 BUILDS_DIR=/build/
