@@ -16,9 +16,13 @@ wait_for_service () {
 pwd 
 exit 1
 
-BUILDS_DIR=/builds/coral
+# BUILDS_DIR=/builds/coral
+# TRAVIS CI home dir
+BUILDS_DIR=/build/
 TESTER_NAME=coral-tester
-DIST_NAME=coral-docker-dist
+# DIST_NAME=coral-docker-dist
+# TRAVIS CI test dist dir
+DIST_NAME=PedroFSousa/verbose-eureka
 TESTER_DIR=$BUILDS_DIR/$TESTER_NAME
 DIST_DIR=$BUILDS_DIR/$DIST_NAME
 
