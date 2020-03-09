@@ -36,7 +36,7 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below
 apt install python python3 python3-dev python3-pip curl libffi-dev
 
--H pip3 install --upgrade pip
+pip3 install --upgrade pip
 -H pip3 install docker-compose
 
 # cd $BUILDS_DIR
