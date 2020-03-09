@@ -31,9 +31,9 @@ rm -rf coral-tester
 # apt add --no-cache python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
 # apt add --update nodejs npm
 
-# apt-get python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
-# dont know if i can remove line above
-apt-get --update nodejs npm
+# apt-get python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
+# apt-get --update nodejs npm
+# dont know if i can remove both lines above
 
 pip3 install --upgrade pip
 pip3 install docker-compose
