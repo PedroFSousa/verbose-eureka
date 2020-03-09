@@ -13,12 +13,9 @@ wait_for_service () {
   echo -e "$1 is ready!\n"
 }
 
-pwd
-exit 1
-
 # BUILDS_DIR=/builds/coral
 # TRAVIS CI home dir
-BUILDS_DIR=/build/
+BUILDS_DIR=/home/travis/build/
 TESTER_NAME=coral-tester
 # DIST_NAME=coral-docker-dist
 # TRAVIS CI test dist dir
