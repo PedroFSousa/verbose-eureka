@@ -27,8 +27,8 @@ cd $BUILDS_DIR
 
 # Install requirements
 rm -rf coral-tester
-apk add --no-cache python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
-apk add --update nodejs npm
+apt add --no-cache python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
+apt add --update nodejs npm
 
 pip3 install --upgrade pip
 pip3 install docker-compose
