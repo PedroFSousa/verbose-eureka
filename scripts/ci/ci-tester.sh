@@ -13,6 +13,9 @@ wait_for_service () {
   echo -e "$1 is ready!\n"
 }
 
+pwd 
+exit 1
+
 BUILDS_DIR=/builds/coral
 TESTER_NAME=coral-tester
 DIST_NAME=coral-docker-dist
