@@ -3,6 +3,8 @@ language: node_js
 
 image: docker
 
+required: sudo
+
 services:
   - docker
 
