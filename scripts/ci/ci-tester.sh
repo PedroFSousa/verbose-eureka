@@ -32,6 +32,7 @@ rm -rf coral-tester
 # apt add --update nodejs npm
 
 # apt-get python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
+# dont know if i can remove line above
 apt-get --update nodejs npm
 
 pip3 install --upgrade pip
