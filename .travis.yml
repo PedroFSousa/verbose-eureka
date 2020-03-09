@@ -23,9 +23,9 @@ jobs:
       name: test deployment
       script:
         - cd scripts/ci
-        - bash ci-tester.sh
+        - sudo bash ci-tester.sh
     - stage: zip-checksum
       name: create zip-checksum
       script:
         - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
-        - bash scripts/ci/zip-files-checksum.sh $VERSION
+        - sudo bash scripts/ci/zip-files-checksum.sh $VERSION
