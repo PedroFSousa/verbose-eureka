@@ -34,14 +34,14 @@ rm -rf coral-tester
 # apt install python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
 # apt upgrade nodejs npm
 # dont know if i can remove both lines above, trying the one below
-apt install python python3 python3-dev python3-pip curl build-base libffi-dev openssl-dev libgcc
+apt install python python3 python3-dev python3-pip curl libffi-dev
 
-pip3 install --upgrade pip
-pip3 install docker-compose
+-H pip3 install --upgrade pip
+-H pip3 install docker-compose
 
 # cd $BUILDS_DIR
 
-git clone https://gitlab-ci-token:$CI_JOB_TOKEN@gitlab.inesctec.pt/coral/coral-tester.git
+git clone https://gitlab.inesctec.pt/coral/coral-tester.git
 
 # Docker Registry Login
 docker login -u gitlab-ci-token -p $CI_JOB_TOKEN docker-registry.inesctec.pt
