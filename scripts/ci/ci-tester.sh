@@ -27,8 +27,12 @@ cd $BUILDS_DIR
 
 # Install requirements
 rm -rf coral-tester
-apt add --no-cache python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
-apt add --update nodejs npm
+# travis doesnt recognise apk or --no-cache
+# apt add --no-cache python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
+# apt add --update nodejs npm
+
+apt-get python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
+apt-get --update nodejs npm
 
 pip3 install --upgrade pip
 pip3 install docker-compose
