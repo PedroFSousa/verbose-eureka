@@ -1,0 +1,139 @@
+<!doctype html>
+<!--
+  ~ Copyright (c) 2018 OBiBa. All rights reserved.
+  ~
+  ~ This program and the accompanying materials
+  ~ are made available under the terms of the GNU Public License v3.0.
+  ~
+  ~ You should have received a copy of the GNU General Public License
+  ~ along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!--[if lt IE 7]>
+<html class="no-js lt-ie9 lt-ie8 lt-ie7">
+<![endif]-->
+<!--[if IE 7]>
+<html class="no-js lt-ie9 lt-ie8">
+<![endif]-->
+<!--[if IE 8]>
+<html class="no-js lt-ie9">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <link rel="stylesheet" href="auth/styles/aa6f3215.main.css"/>
+  <link rel="stylesheet" href="auth/ws/config/style.css">
+</head>
+<body ng-app="agate" ng-controller="MainController">
+<!--[if lt IE 10]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+<!---->
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <a href="#" class="navbar-brand">{{agateConfig.name}}</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar-main" ng-switch="authenticated">
+      <ul class="nav navbar-nav" ng-if="hasRole('agate-administrator')">
+        <li>
+          <a href="#/users">
+            <span translate>global.menu.users</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/groups">
+            <span translate>global.menu.groups</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/applications">
+            <span translate>global.menu.applications</span>
+          </a>
+        </li>
+        <li>
+          <a href="#/tickets">
+            <span translate>global.menu.tickets</span>
+          </a>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right" ng-if="authenticated">
+        <li ng-if="hasRole('agate-administrator')">
+          <a href="#/admin">
+            <span translate>global.menu.admin</span>
+          </a>
+        </li>
+        <li>
+          <a href="http://agatedoc.obiba.org" target="_blank">
+            <span translate>help</span>
+          </a>
+        </li>
+        <li class="dropdown">
+          <a href="" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="fa fa-user"></i>
+            {{subject.login}}
+            <i class="fa fa-caret-down"></i></a>
+          <ul class="dropdown-menu pull-right" ng-controller="LanguageController">
+            <li ng-if="hasProfile"><a href="#/profile"><i class="fa fa-cog"></i> <span translate>global.menu.myProfile</span></a></li>
+            <li class="divider" ng-if="hasProfile"></li>
+            <li ng-repeat="lang in languages">
+              <a href ng-click="changeLanguage(lang)">
+                <span>{{'language.' + lang | translate}}</span> <i class="fa fa-check" aria-hidden="true" ng-show="getCurrentLanguage() === lang"></i></a>
+            </li>
+            <li class="divider"></li>
+            <li><a href="#/logout"><i class="fa fa-sign-out"></i> <span translate>global.menu.logout</span></a></li>
+          </ul>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-header" ng-switch="authenticated">
+  </div>
+
+  <obiba-alert id="Application"></obiba-alert>
+  <div ng-controller="NotificationController"></div>
+
+  <div ng-view=""></div>
+
+  <footer ng-if="authenticated">
+    <div class="row">
+      <div class="col-lg-12">
+        <ul class="list-unstyled list-inline">
+          <li class="pull-right">{{agateConfig.version}}</li>
+          <li>© 2018</li>
+          <li><a href="http://obiba.org" target="_blank"> OBiBa </a></li>
+          <li><a href="http://agatedoc.obiba.org" target="_blank">
+            Documentation </a></li>
+          <li><a href="https://github.com/obiba/agate" target="_blank"> Sources
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="recaptcha"></div>
+
+<script src="auth/scripts/scripts.js"></script>
+</body>
+</html>

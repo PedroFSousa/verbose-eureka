@@ -1,0 +1,205 @@
+version: '3.7'
+
+services:
+  apache:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-apache-docker:1.3.6
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    ports:
+    - "80:80"
+    - "443:443"
+    env_file: ./conf/stack.env
+    volumes:
+    - ./custom/apache/conf/custom.conf:/etc/apache2/conf-available/custom.conf
+    - ./custom/apache/certs/fullchain.pem:/etc/ssl/certs/fullchain.pem
+    - ./custom/apache/certs/privkey.pem:/etc/ssl/certs/privkey.pem
+    - ./custom/apache/html:/var/www/html
+    - apache-le-certs:/etc/letsencrypt/
+    - apache-logs:/var/log/
+  agate:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-agate-docker:1.2.2
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    volumes:
+    - ./scripts/set_app_route.sh:/set_app_route.sh
+    - ./custom/agate/webapp/dist/index.html:/usr/share/agate/webapp/dist/index.html
+    - ./custom/agate/applications:/usr/share/agate/applications
+    - ./custom/agate/groups:/usr/share/agate/groups
+    - agate:/srv
+    secrets:
+    - AGATE_ADMINISTRATOR_PASSWORD
+    - MONGO_INITDB_ROOT_PASSWORD
+    command: bash -c "./wait-for-it.sh --timeout=90 mongo:27017 && ./set_app_route.sh agate && ./docker-entrypoint.sh app"
+  opal:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-opal-docker:1.3.5
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    volumes:
+    - ./scripts/set_app_route.sh:/set_app_route.sh    
+    - ./custom/opal/taxonomies:/usr/share/opal/taxonomies
+    - opal:/srv
+    secrets:
+    - OPAL_ADMINISTRATOR_PASSWORD
+    - MYSQLIDS_PASSWORD
+    - MYSQLDATA_PASSWORD
+    command: bash -c "./wait-for-it.sh --timeout=90 opal-data:3306 && ./wait-for-it.sh --timeout=90 opal-ids:3306 && ./wait-for-it.sh --timeout=120 rserver:6312 && ./wait-for-it.sh --timeout=240 agate:8444 && ./set_app_route.sh opal &&./docker-entrypoint.sh app"
+  mica:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mica-docker:1.3.5
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    volumes:
+    - ./scripts/set_app_route.sh:/set_app_route.sh    
+    - ./custom/mica/webapp/dist/index.html:/usr/share/mica2/webapp/dist/index.html
+    - ./custom/mica/forms:/usr/share/mica2/forms
+    - ./custom/mica/opal_creds:/usr/share/mica2/opal_creds
+    - mica:/srv
+    secrets:
+    - MICA_ADMINISTRATOR_PASSWORD
+    - OPAL_ADMINISTRATOR_PASSWORD
+    - MONGO_INITDB_ROOT_PASSWORD
+    command: bash -c "./wait-for-it.sh --timeout=90 mongo:27017 && ./wait-for-it.sh --timeout=240 agate:8444 && ./wait-for-it.sh --timeout=420 opal:8443 && ./set_app_route.sh mica &&./docker-entrypoint.sh app"
+  mica-drupal:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mica-drupal-docker:1.1.2
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    volumes:
+    - ./custom/drupal/customize.sql:/customize.sql
+    - ./custom/drupal/sites:/sites
+    - ./custom/drupal/modules:/modules
+    secrets:
+    - DRUPAL_ADMINISTRATOR_PASSWORD
+    - MYSQLDRUPAL_ROOT_PASSWORD
+    command: bash -c "bash /wait-for-it.sh --timeout=90 mica-drupal-data:3306 && bash /wait-for-it.sh --timeout=480 mica:8445 && bash /docker-entrypoint.sh app"
+  opal-ids:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mysql-docker:1.1.0
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/opal-ids.env
+    secrets:
+    - MYSQLIDS_PASSWORD
+    - MYSQLIDS_ROOT_PASSWORD
+    volumes:
+    - opal-ids:/var/lib/mysql
+  opal-data:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mysql-docker:1.1.0
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/opal-data.env
+    secrets:
+    - MYSQLDATA_PASSWORD
+    - MYSQLDATA_ROOT_PASSWORD
+    volumes:
+    - opal-data:/var/lib/mysql
+  mica-drupal-data:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mysql-docker:1.1.0
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    secrets:
+    - MYSQLDRUPAL_ROOT_PASSWORD
+  mongo:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-mongo-docker:1.2.0
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    env_file: ./conf/stack.env
+    secrets:
+    - MONGO_INITDB_ROOT_PASSWORD
+    volumes:
+    - mongo:/data/db
+  rserver:
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-opal-rserver-docker:1.1.0
+    networks: 
+      - net
+    deploy:
+      labels:
+        system: Coral
+    volumes:
+    - rserver:/srv
+
+volumes:
+  apache-logs:
+    labels:
+      system: "Coral"
+  apache-le-certs:
+    labels:
+      system: "Coral"
+  agate:
+    labels:
+      system: "Coral"
+  opal:
+    labels:
+      system: "Coral"
+  mica:
+    labels:
+      system: "Coral"
+  opal-ids:
+    labels:
+      system: "Coral"
+  opal-data:
+    labels:
+      system: "Coral"
+  mongo:
+    labels:
+      system: "Coral"
+  rserver:
+    labels:
+      system: "Coral"
+
+secrets:
+  AGATE_ADMINISTRATOR_PASSWORD:
+    external: true
+  OPAL_ADMINISTRATOR_PASSWORD:
+    external: true
+  MICA_ADMINISTRATOR_PASSWORD:
+    external: true
+  DRUPAL_ADMINISTRATOR_PASSWORD:
+    external: true
+  MYSQLIDS_PASSWORD:
+    external: true
+  MYSQLIDS_ROOT_PASSWORD:
+    external: true
+  MYSQLDATA_PASSWORD:
+    external: true
+  MYSQLDATA_ROOT_PASSWORD:
+    external: true
+  MYSQLDRUPAL_ROOT_PASSWORD:
+    external: true
+  MONGO_INITDB_ROOT_PASSWORD:
+    external: true
+
+networks:
+  net:
+    name: coral_global_net
+    driver: overlay
+    attachable: true

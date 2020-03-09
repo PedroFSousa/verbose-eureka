@@ -1,0 +1,94 @@
+version: "3.7"
+
+networks:
+  coral_global_net:
+    external: true
+
+volumes:
+  prometheus_data: 
+    labels:
+      system: "Coral"
+  grafana_data: 
+    labels:
+      system: "Coral"
+
+services:
+  ## Prometheus records real-time metrics in a time series database built using a HTTP pull model, 
+  ## with flexible queries and real-time alerting.
+  prometheus:
+    labels:
+      - "system=Coral"
+    image: docker-registry.inesctec.pt/coral/coral-docker-images/coral-prometheus-docker:1.0.0
+    networks:
+      - coral_global_net
+    volumes:
+      - prometheus_data:/prometheus
+    env_file: ../conf/stack.env
+    deploy:
+      labels:
+        system: Coral
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == manager
+      resources:
+        limits:
+          memory: 2048M
+        reservations:
+          memory: 128M
+
+  ## cAdvisor provides container users an understanding of the resource usage and performance characteristics of their running
+  ## containers. It is a running daemon that collects, aggregates, processes, and exports information about running containers.
+  cadvisor:
+    labels:
+      - "system=Coral"
+    image: google/cadvisor
+    networks:
+      - coral_global_net
+    command: -logtostderr -docker_only
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/rootfs:ro
+      - /var/run:/var/run
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    env_file: ../conf/stack.env
+    deploy:
+      labels:
+        system: Coral
+      mode: global
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 64M
+
+  ## Node exporter is a Prometheus exporter for machine metrics, written in Go with pluggable metric collectors. 
+  node-exporter:
+    labels:
+      - "system=Coral"
+    image: prom/node-exporter
+    networks:
+      - coral_global_net
+    environment:
+      - NODE_ID={{.Node.ID}}
+    user: root
+    volumes:
+      - ./node-exporter/docker-entrypoint.sh:/etc/node-exporter/docker-entrypoint.sh
+      - /sys:/host/sys:ro
+      - /proc:/host/proc:ro
+      - /:/rootfs:ro
+    env_file: ../conf/stack.env
+    deploy:
+      labels:
+        system: Coral
+      mode: global
+    entrypoint: /etc/node-exporter/docker-entrypoint.sh
+    command:
+      - '--path.sysfs=/host/sys'
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--collector.textfile.directory=/etc/node-exporter/'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+      - '--no-collector.ipvs'

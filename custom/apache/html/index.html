@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url=/cat" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="icon" href="favicon.ico">
+    <title>Coral</title>
+  </head>
+
+  <body>
+    <style>
+        .loading:after {
+          content: ' .';
+          animation: dots 1s steps(10, end) infinite;
+          font-size: 150px;
+          line-height: 5px;
+          color: white;
+          margin-left: -50px;
+        }
+        @keyframes dots {
+          0%, 20% {
+            color: white;
+            text-shadow:
+              .25em 0 0 white, .5em 0 0 white;}
+          40% {
+            color: #009EE0;
+            text-shadow:
+              .25em 0 0 white, .5em 0 0 white;
+          }
+          60% {
+            text-shadow:
+              .25em 0 0 #009EE0, .5em 0 0 white;
+          }
+          80%, 100% {
+            text-shadow:
+              .25em 0 0 #009EE0, .5em 0 0 #009EE0;
+          }
+        }
+        #logo {
+          max-height: 30vh;
+          max-width: 80vw;
+          margin-top: 20vh;
+        }
+        body {
+          text-align: center;
+        }
+    </style>
+
+   <img id="logo" src="logo.png">
+   <p class="loading"></p>
+  </body>
+</html>
+

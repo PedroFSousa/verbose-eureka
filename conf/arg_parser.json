@@ -1,0 +1,187 @@
+{
+  "description": "Deploy and manage the Coral Docker Stack",
+  "help": {
+    "add_help": false,
+    "position": 30,
+    "width": 125
+  },
+  "arg_groups": [
+    {
+      "name": "help",
+      "title": "> HELP",
+      "args": [
+        {
+          "flags": {
+            "short": "-h",
+            "long": "--help"
+          },
+          "action": "help",
+          "description": "show help message and exit"
+        },
+        {
+          "flags": {
+            "short": "-v",
+            "long": "--version"
+          },
+          "action": "store_true",
+          "description": "print the version number"
+        }
+      ]
+    },
+    {
+      "name": "deployment",
+      "title": "> DEPLOYMENT",
+      "args": [
+        {
+          "flags": {
+            "long": "--deploy"
+          },
+          "action": "store_true",
+          "description": "deploy a Coral stack (required for all the other deployment arguments)"
+        },
+        {
+          "flags": {
+            "long": "--domain"
+          },
+          "action": "store",
+          "required": true,
+          "description": "[REQUIRED] specify a domain that points to this machine"
+        },
+        {
+          "flags": {
+            "long": "--email"
+          },
+          "action": "store",
+          "required": true,
+          "description": "[REQUIRED] specify a webmaster email"
+        },
+        {
+          "flags": {
+            "long": "--letsencrypt"
+          },
+          "action": "store_true",
+          "description": "issue a Let's Encrypt certificate for the specified domain (letsencrypt.org)"
+        },
+        {
+          "flags": {
+            "long": "--stack-name"
+          },
+          "action": "store",
+          "description": "specify a name for the stack (for internal use by Docker)"
+        },
+        {
+          "flags": {
+            "long": "--addr"
+          },
+          "action": "store",
+          "description": "specify an IP address, in case multiple network interfaces are available"
+        },
+        {
+          "flags": {
+            "long": "--http-proxy"
+          },
+          "action": "store",
+          "description": "specify an HTTP proxy address. Format: [http|https]://[ip|domain]:[port]"
+        },
+        {
+          "flags": {
+            "long": "--https-proxy"
+          },
+          "action": "store",
+          "description": "specify an HTTPS proxy address. Format: [http|https]://[ip|domain]:[port]"
+        },
+        {
+          "flags": {
+            "long": "--no-port-binding"
+          },
+          "action": "store_true",
+          "description": "disable the binding of ports 80 and 443 to the host"
+        },
+        {
+          "flags": {
+            "long": "--dev"
+          },
+          "action": "store_true",
+          "description": "deploy using dev versions of Coral Docker images"
+        },
+        {
+          "flags": {
+            "long": "--test"
+          },
+          "action": "store_true",
+          "description": "enable non-interactive deployment"
+        },
+        {
+          "flags": {
+            "long": "--central"
+          },
+          "action": "store_true",
+          "description": "",
+          "suppress": true
+        }
+
+      ]
+    },
+    {
+      "name": "management",
+      "title": "> MANAGEMENT",
+      "mutually_exclusive": true,
+      "args": [
+        {
+          "flags": {
+            "long": "--list"
+          },
+          "action": "store",
+          "description": "list Coral Docker objects",
+          "choices": ["services", "images", "containers", "volumes", "secrets", "stack"]
+        },
+        {
+          "flags": {
+            "long": "--remove"
+          },
+          "action": "store",
+          "nargs": "+",
+          "description": "remove Coral Docker objects",
+          "choices": ["services", "images", "containers", "volumes", "secrets", "stack", "all"]
+        },
+        {
+          "flags": {
+            "long": "--start"
+          },
+          "action": "store_true",
+          "description": "start all Coral services"
+        },
+        {
+          "flags": {
+            "long": "--stop"
+          },
+          "action": "store_true",
+          "description": "stop all Coral services"
+        },
+        {
+          "flags": {
+            "long": "--restart"
+          },
+          "action": "store_true",
+          "description": "restart all Coral services"
+        },
+        {
+          "flags": {
+            "long": "--update"
+          },
+          "action": "store_true",
+          "description": "update the Coral Docker images"
+        },
+        {
+          "flags": {
+            "long": "--logs"
+          },
+          "action": "store",
+          "nargs": "+",
+          "description": "save logs from Coral services",
+          "choices": ["agate", "opal", "mica", "drupal", "apache", "all"]
+        }
+      ]
+    }
+  ]
+}

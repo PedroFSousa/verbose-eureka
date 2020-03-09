@@ -13,24 +13,19 @@ before_install:
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
 
 stages:
-  - name: build-master
+  - name: test
+  - name: zip-checksum
     if: branch = master
-  - name: build-dev
-    if: branch = dev
 
 jobs:
   include:
-    - stage: build-master
-      name: build docker
+    - stage: test
+      name: test deployment
       script:
-        - docker version
-        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-        - docker build -t $DOCKER_HUB_SLUG:$VERSION .
-        - docker push $DOCKER_HUB_SLUG:$VERSION
-    - stage: build-dev
-      name: build docker
+        - cd scripts/ci
+        - bash ci-tester.sh
+    - stage: zip-checksum
+      name: create zip-checksum
       script:
-        - docker version
-        - docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
-        - docker build -t $DOCKER_HUB_SLUG:$VERSION-dev .
-        - docker push $DOCKER_HUB_SLUG:$VERSION-dev
+        - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
+        - bash scripts/ci/zip-files-checksum.sh $VERSION
