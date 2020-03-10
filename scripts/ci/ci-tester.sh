@@ -42,10 +42,8 @@ pip3 install --upgrade pip
 
 # cd $BUILDS_DIR
 
-# coral-tester repository (gitlab)
-# git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+# coral-tester repository (gitlab) WORKS!!
 git clone https://$DOCKER_LOGIN_USER:$DOCKER_LOGIN_PW@gitlab.inesctec.pt/coral/coral-tester.git
-# coral-tester repository (gitlab)
 
 # Docker Registry Login
 docker login -u $DOCKER_LOGIN_USER -p $DOCKER_LOGIN_PW docker-registry.inesctec.pt
@@ -55,6 +53,12 @@ cd $DIST_DIR
 
 #Create Secrets
 docker swarm init
+# breaking here..
+# To add a worker to this swarm, run the following command:
+
+#     docker swarm join --token SWMTKN-1-2rhyr0f27a3l9z6yv7fzdwy1srl660lbygij3joqm7cs8zjzfk-elljnm9uxsd08tbvuzvpsn6q7 10.30.2.169:2377
+
+# To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
 
 secrets=( "AGATE_ADMINISTRATOR_PASSWORD" "OPAL_ADMINISTRATOR_PASSWORD" "MICA_ADMINISTRATOR_PASSWORD" "DRUPAL_ADMINISTRATOR_PASSWORD" "MYSQLIDS_PASSWORD" "MYSQLIDS_ROOT_PASSWORD" "MYSQLDATA_PASSWORD" "MYSQLDATA_ROOT_PASSWORD" "MYSQLDRUPAL_ROOT_PASSWORD" "MONGO_INITDB_ROOT_PASSWORD" )
 
