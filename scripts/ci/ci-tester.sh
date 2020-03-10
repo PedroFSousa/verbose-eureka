@@ -36,16 +36,17 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below
 apt install python python3 python3-dev python3-pip curl libffi-dev
 
-# TODO: failing here.. 
+# TODO: failing here, had to comment pip3 install docker-compose.. 
 pip3 install --upgrade pip
 # pip3 install docker-compose
 
 # cd $BUILDS_DIR
 
-git clone https://gitlab-ci-token:$TRAVIS_JOB_TOKEN@gitlab.inesctec.pt/coral/coral-tester.git
+# coral-tester repository (gitlab)
+https://gitlab.inesctec.pt/coral/coral-tester.git
 
 # Docker Registry Login
-docker login -u gitlab-ci-token -p $TRAVIS_JOB_TOKEN docker-registry.inesctec.pt
+docker login -u $DOCKER_LOGIN_USER -p $DOCKER_LOGIN_PW docker-registry.inesctec.pt
 # changed DOCKER_LOGIN_USER secret
 
 cd $DIST_DIR
