@@ -42,10 +42,10 @@ pip3 install --upgrade pip
 
 # cd $BUILDS_DIR
 
-git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+git clone https://gitlab-ci-token:$CI_JOB_TOKEN@gitlab.inesctec.pt/coral/coral-tester.git
 
 # Docker Registry Login
-docker login -u "pedro.f.sousa" -p $DOCKER_LOGIN_PW docker-registry.inesctec.pt
+docker login -u gitlab-ci-token -p $CI_JOB_TOKEN docker-registry.inesctec.pt
 # changed DOCKER_LOGIN_USER secret
 
 cd $DIST_DIR
