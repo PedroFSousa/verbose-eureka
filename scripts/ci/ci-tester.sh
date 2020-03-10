@@ -36,14 +36,14 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below
 apt install python python3 python3-dev python3-pip curl libffi-dev
 
-# TODO: failing here, had to comment pip3 install docker-compose.. 
+# pip3 install docker-compose dá erro durante o build
 pip3 install --upgrade pip
 # pip3 install docker-compose
 
 # cd $BUILDS_DIR
 
 # coral-tester repository (gitlab)
-echo ${ $DOCKER_LOGING_USER, \n, $DOCKER_LOGIN_PW } | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+echo ${ $DOCKER_LOGING_USER && \n && $DOCKER_LOGIN_PW } | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
 # coral-tester repository (gitlab)
 
 # Docker Registry Login
