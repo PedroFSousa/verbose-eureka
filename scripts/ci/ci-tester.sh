@@ -47,7 +47,7 @@ git clone https://gitlab.inesctec.pt/coral/coral-tester.git
 
 # Docker Registry Login
 docker login -u $DOCKER_LOGIN_USER -p $DOCKER_LOGIN_PW docker-registry.inesctec.pt
-# changed DOCKER_LOGIN_USER secret
+# changed DOCKER_LOGIN_USER secret to escape special characters
 
 cd $DIST_DIR
 
