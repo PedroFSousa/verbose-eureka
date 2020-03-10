@@ -33,7 +33,7 @@ rm -rf coral-tester
 
 # apt install python python3 python3-dev py3-pip curl build-base libffi-dev openssl-dev libgcc
 # apt upgrade nodejs npm
-# dont know if i can remove both lines above, trying the one below
+# dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 apt install python python3 python3-dev python3-pip curl libffi-dev
 
 # pip3 install docker-compose dá erro durante o build
@@ -43,7 +43,8 @@ pip3 install --upgrade pip
 # cd $BUILDS_DIR
 
 # coral-tester repository (gitlab)
-echo ${ echo $DOCKER_LOGING_USER && echo \n && echo $DOCKER_LOGIN_PW } | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+# git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+git clone https://gitlab-ci-token@gitlab.inesctec.pt/coral/coral-tester.git
 # coral-tester repository (gitlab)
 
 # Docker Registry Login
