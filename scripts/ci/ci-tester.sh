@@ -43,7 +43,7 @@ pip3 install --upgrade pip
 # cd $BUILDS_DIR
 
 # coral-tester repository (gitlab)
-echo $DOCKER_LOGING_USER \n $DOCKER_LOGIN_PW | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+echo ${ $DOCKER_LOGING_USER \n $DOCKER_LOGIN_PW } | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
 echo $DOCKER_LOGIN_USER
 echo \n
 echo $DOCKER_LOGIN_PW
