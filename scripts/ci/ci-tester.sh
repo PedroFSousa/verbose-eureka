@@ -35,6 +35,7 @@ rm -rf coral-tester
 # apt upgrade nodejs npm
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 apt-get install python python3-dev python3-pip curl libffi-dev
+add-apt-repository ppa:deadsnakes/ppa
 apt-get install python3.6
 # pip3 install docker-compose dá erro durante o build
 pip3 install --upgrade pip
