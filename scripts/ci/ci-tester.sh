@@ -43,7 +43,10 @@ pip3 install --upgrade pip
 # cd $BUILDS_DIR
 
 # coral-tester repository (gitlab)
-${ echo $DOCKER_LOGIN_USER; echo \n; echo $DOCKER_LOGIN_PW } | git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+git clone https://gitlab.inesctec.pt/coral/coral-tester.git
+echo $DOCKER_LOGIN_USER
+echo \n
+echo $DOCKER_LOGIN_PW
 
 # Docker Registry Login
 docker login -u $DOCKER_LOGIN_USER -p $DOCKER_LOGIN_PW docker-registry.inesctec.pt
