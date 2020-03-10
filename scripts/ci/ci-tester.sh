@@ -44,7 +44,7 @@ pip3 install --upgrade pip
 
 # coral-tester repository (gitlab)
 # git clone https://gitlab.inesctec.pt/coral/coral-tester.git
-git clone https://gitlab-ci-token@gitlab.inesctec.pt/coral/coral-tester.git
+git clone https://gitlab-ci-token:$DOCKER_LOGIN_PW@gitlab.inesctec.pt/coral/coral-tester.git
 # coral-tester repository (gitlab)
 
 # Docker Registry Login
