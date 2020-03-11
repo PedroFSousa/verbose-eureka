@@ -36,7 +36,10 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
-apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev nodejs npm
+apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
+# use nvm to install node 6.0.0
+nvm install 8.0.0
+nvm use 8.0.0
 
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
 
