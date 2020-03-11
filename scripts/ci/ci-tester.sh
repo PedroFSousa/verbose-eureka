@@ -7,7 +7,7 @@ wait_for_service () {
   echo "Waiting for $1 to be ready..."
   while [ $res != 200 ]
   do
-    res=$(curl -k -s -o /dev/null -w "%{http_code}" "https://docker/$2")
+    res=$(curl -k -s -o /dev/null -w "%{http_code}" "https://localhost/$2")
     sleep 5
   done
   echo -e "$1 is ready!\n"
@@ -73,6 +73,8 @@ done
 
 # Deploy Coral
 python3.6 coral.py --deploy --domain localhost --email test@test.com --test
+
+# breaking on pull of the images
 
 echo -e "Waiting for Coral to be ready...\n"
 
