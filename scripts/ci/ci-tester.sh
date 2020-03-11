@@ -36,7 +36,7 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
-apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
+apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev npm
 
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
 
@@ -89,6 +89,7 @@ echo "Iniciating tests..."
 
 cd $TESTER_DIR
 
+# doesnt recognize npm in travis ci atm...
 npm install
 npm start
 
