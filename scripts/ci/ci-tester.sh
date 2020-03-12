@@ -90,6 +90,8 @@ echo "Iniciating tests..."
 cd $TESTER_DIR
 
 # still not recognizing npm...
+# trying to install nodejs here
+apt-get install nodejs
 npm install
 npm start
 
