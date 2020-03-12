@@ -37,6 +37,7 @@ rm -rf coral-tester
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
 apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
+nvm ls
 nvm alias default 10.1.0
 
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
