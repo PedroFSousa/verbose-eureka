@@ -92,6 +92,7 @@ echo "Iniciating tests..."
 cd $TESTER_DIR
 
 # still not recognizing npm...
+# will it work this ?
 npm install
 npm start
 
