@@ -94,7 +94,7 @@ cd $TESTER_DIR
 # still not recognizing npm...
 # will it work this ?
 # npm install
-node start
+# npm start
 
 if [ $? == 0 ]; then
   echo -e "All tests were successfully completed!\n"
@@ -102,3 +102,5 @@ else
   echo -e "Tests failed!\n"
   exit 1
 fi
+# need it to fail here
+exit 1
