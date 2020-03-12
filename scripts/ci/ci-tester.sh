@@ -93,7 +93,7 @@ cd $TESTER_DIR
 
 # still not recognizing npm...
 # will it work this ?
-npm install
+# npm install
 npm start
 
 if [ $? == 0 ]; then
