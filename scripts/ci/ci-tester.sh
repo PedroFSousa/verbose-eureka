@@ -89,7 +89,7 @@ echo "Iniciating tests..."
 
 cd $TESTER_DIR
 
-# doesnt recognize npm in travis ci atm...
+# still not recognizing npm...
 npm install
 npm start
 
