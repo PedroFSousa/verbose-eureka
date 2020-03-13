@@ -93,7 +93,7 @@ cd $TESTER_DIR
 
 # still not recognizing npm...
 # will it work this ?
-setup npm
+travis setup npm
 npm install
 npm start
 
