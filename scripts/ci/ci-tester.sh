@@ -40,6 +40,8 @@ apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
 # nvm ls
 # nvm alias default 10.1.0
 
+npm install
+
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
 
 # pip3 install docker-compose dá erro durante o build
