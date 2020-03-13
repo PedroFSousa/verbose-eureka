@@ -35,10 +35,10 @@ rm -rf coral-tester
 # apt upgrade nodejs npm
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
+apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt-get update
 apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev nodejs npm
-# nvm ls
-# nvm alias default 10.1.0
 
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
 
