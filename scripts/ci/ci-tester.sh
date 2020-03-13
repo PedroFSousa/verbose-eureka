@@ -23,10 +23,6 @@ DIST_NAME=PedroFSousa/verbose-eureka
 TESTER_DIR=$BUILDS_DIR/$TESTER_NAME
 DIST_DIR=$BUILDS_DIR/$DIST_NAME
 
-apt-get install nodejs npm
-npm install
-
-
 cd $BUILDS_DIR
 
 # Install requirements
@@ -40,7 +36,7 @@ rm -rf coral-tester
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
 apt-get update
-apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
+apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev nodejs npm
 # nvm ls
 # nvm alias default 10.1.0
 
