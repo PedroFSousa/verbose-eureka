@@ -38,6 +38,7 @@ add-apt-repository -y ppa:deadsnakes/ppa
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 bash install_nvm.sh
 apt-get update
+source ~/.profile
 nvm install 12.16
 nvm use 12.16
 apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
