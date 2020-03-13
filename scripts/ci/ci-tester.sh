@@ -23,7 +23,7 @@ DIST_NAME=PedroFSousa/verbose-eureka
 TESTER_DIR=$BUILDS_DIR/$TESTER_NAME
 DIST_DIR=$BUILDS_DIR/$DIST_NAME
 
-apt-get install nodejs nvm npm
+apt-get install nodejs npm
 npm install
 
 
