@@ -35,10 +35,10 @@ rm -rf coral-tester
 # apt upgrade nodejs npm
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 bash install_nvm.sh
 apt-get update
-source ~/.profile
+sudo apt install build-essential -y
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 nvm install 12.16
 nvm use 12.16
 apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
