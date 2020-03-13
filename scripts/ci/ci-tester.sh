@@ -35,7 +35,7 @@ rm -rf coral-tester
 # apt upgrade nodejs npm
 # dont know if i can remove both lines above, trying the one below; missing build-base, openssl-dev and libgcc
 add-apt-repository -y ppa:deadsnakes/ppa
-bash install_nvm.sh
+# bash install_nvm.sh
 apt-get update
 sudo apt install build-essential -y
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
