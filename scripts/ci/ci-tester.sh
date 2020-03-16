@@ -45,9 +45,6 @@ apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
 apt -y install curl dirmngr apt-transport-https lsb-release ca-certificates
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 apt-get install -y nodejs
-sudo npm install
-sudo npm start
-
 
 # NOTE: Xenial is supposed to already have python3.6.7 installed, but logs say 3.5.3
 
