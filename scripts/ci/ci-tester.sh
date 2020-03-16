@@ -37,8 +37,8 @@ rm -rf coral-tester
 add-apt-repository -y ppa:deadsnakes/ppa
 # bash install_nvm.sh
 apt-get update
-# sudo apt install build-essential -y
-# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
+sudo apt install build-essential -y
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 # nvm install 12.16
 # nvm use 12.16
 apt-get install python python3.6 python3.6-dev python3-pip curl libffi-dev
