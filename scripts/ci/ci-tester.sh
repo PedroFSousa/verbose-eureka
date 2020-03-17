@@ -108,5 +108,3 @@ else
   echo -e "Tests failed!\n"
   exit 1
 fi
-# need it to fail here
-exit 1
