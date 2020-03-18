@@ -18,7 +18,7 @@ PROJECT_DIR=$BUILDS_DIR/$CI_PROJECT_NAMESPACE
 DIST_DIR=$PROJECT_DIR/$CI_PROJECT_NAME
 VERSION=$1
 ZIP_NAME=$CI_PROJECT_NAME.zip
-DEPLOYMENT_SERVICE_URL=https://coral.inesctec.pt
+DEPLOYMENT_SERVICE_URL=https://recap-default.inesctec.pt
 
 # Install dependencies
 apk add --no-cache git curl
