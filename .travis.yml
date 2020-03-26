@@ -23,11 +23,11 @@ stages:
 
 jobs:
   include:
-    - stage: test
-      name: test deployment
-      script:
-        - cd scripts/ci
-        - sudo bash ci-tester.sh
+    # - stage: test
+    #   name: test deployment
+    #   script:
+    #     - cd scripts/ci
+    #     - sudo bash ci-tester.sh
     - stage: zip-checksum
       name: create zip-checksum
       script:
