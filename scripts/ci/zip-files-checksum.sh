@@ -17,6 +17,7 @@ BUILDS_DIR=/home/travis/build/
 # PROJECT_DIR=$BUILDS_DIR/$CI_PROJECT_NAMESPACE
 # PROJECT_DIR=$TRAVIS_BUILD_DIR
 # DIST_DIR=$PROJECT_DIR/$CI_PROJECT_NAME
+# not working?
 DIST_DIR=verbose-eureka/
 VERSION=$1
 ZIP_NAME=verbose-eureka.zip
