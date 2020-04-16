@@ -21,10 +21,10 @@ BUILDS_DIR=/home/travis/build/
 DIST_DIR=$TRAVIS_BUILD_DIR
 VERSION=$1
 ZIP_NAME=verbose-eureka.zip
-DEPLOYMENT_SERVICE_URL=https://recap-default.inesctec.pt
+DEPLOYMENT_SERVICE_URL=https://recap-monitor.inesctec.pt
 
 # Install dependencies
-apt-get install --no-cache git curl
+apt-get install git curl
 
 cd $DIST_DIR
 
@@ -39,9 +39,9 @@ echo "# Custom Apache configuration" > custom/apache/conf/custom.conf
 # create zip file and checksum artifacts
 echo "Generating ZIP file and checksum..."
 mkdir artifacts
-git archive --prefix=${CI_PROJECT_NAME}_$VERSION/ -o artifacts/$ZIP_NAME $stash
+git archive --prefix=${verbose-eureka}_$VERSION/ -o artifacts/$ZIP_NAME $stash
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME)
-echo $CHECKSUM > artifacts/$CI_PROJECT_NAME-checksum.txt
+echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 
 # publish new version on the deployment page
 echo "Publishing version $VERSION..."
