@@ -21,6 +21,7 @@ BUILDS_DIR=/home/travis/build/
 DIST_DIR=$TRAVIS_BUILD_DIR
 VERSION=$1
 ZIP_NAME=verbose-eureka.zip
+# testing new URL
 DEPLOYMENT_SERVICE_URL=https://recap-monitor.inesctec.pt
 
 # Install dependencies
