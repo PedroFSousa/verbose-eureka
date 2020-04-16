@@ -46,7 +46,7 @@ echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 
 # publish new version on the deployment page
 echo "Publishing version $VERSION..."
-
+echo $DEPLOYMENT_EMAIL
 # get access token
 RES=$(curl -s -X POST \
   -H "Content-Type: application/json" \
