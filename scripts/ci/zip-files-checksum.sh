@@ -48,7 +48,7 @@ echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 echo "Publishing version $VERSION..."
 echo $DEPLOYMENT_EMAIL
 # get access token
-RES=$(curl -v -X POST \
+RES=$(curl -s -k -X POST \
   -H "Content-Type: application/json" \
   -d "{\"email\":\"$DEPLOYMENT_EMAIL\",\"password\":\"$DEPLOYMENT_PASSWORD\"}" \
   -w "\nstatus_code=%{http_code}\n" \
@@ -62,7 +62,7 @@ ACCESS_TOKEN=$(echo "$RES" | grep -Po '"id":.*?[^\\]",' | cut -d'"' -f4)
 err "could not get access token - $RES"
 
 # post the zip and md files to the deployment service
-RES=$(curl -s -X POST \
+RES=$(curl -s -k -X POST \
   -H "Content-Type: multipart/form-data" \
   -F "md=@README.md" \
   -F "zip=@artifacts/$ZIP_NAME" \
@@ -72,6 +72,6 @@ RES=$(curl -s -X POST \
 check_status "$RES" 200 "could not upload zip/md files"
 
 # logout
-curl -X DELETE "${DEPLOYMENT_SERVICE_URL}/api/users/logout?access_token=${ACCESS_TOKEN}"
+curl -k -X DELETE "${DEPLOYMENT_SERVICE_URL}/api/users/logout?access_token=${ACCESS_TOKEN}"
 
 echo "Done!"
