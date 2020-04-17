@@ -62,7 +62,7 @@ ACCESS_TOKEN=$(echo "$RES" | grep -Po '"id":.*?[^\\]",' | cut -d'"' -f4)
 err "could not get access token - $RES"
 
 # post the zip and md files to the deployment service
-RES=$(curl -s -k -X POST \
+RES=$(curl -v -k -X POST \
   -H "Content-Type: multipart/form-data" \
   -F "md=@README.md" \
   -F "zip=@artifacts/$ZIP_NAME" \
