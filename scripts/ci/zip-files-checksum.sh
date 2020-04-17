@@ -48,7 +48,7 @@ echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 echo "Publishing version $VERSION..."
 echo $DEPLOYMENT_EMAIL
 # get access token
-RES=$(curl -s -X POST \
+RES=$(curl -v -X POST \
   -H "Content-Type: application/json" \
   -d "{\"email\":\"$DEPLOYMENT_EMAIL\",\"password\":\"$DEPLOYMENT_PASSWORD\"}" \
   -w "\nstatus_code=%{http_code}\n" \
