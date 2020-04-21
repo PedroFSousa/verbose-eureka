@@ -41,9 +41,16 @@ echo "# Custom Apache configuration" > custom/apache/conf/custom.conf
 # create zip file and checksum artifacts
 echo "Generating ZIP file and checksum..."
 mkdir artifacts
+
+# works till here
 pwd
 ls
+
+
 git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
+echo "teste1"
+
+# think it doesnt work past this
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 
