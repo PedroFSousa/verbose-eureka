@@ -21,7 +21,11 @@ stages:
   - name: zip-checksum
     if: branch = master
 
+deploy:
+  skip_cleanup: true
+
 jobs:
+  # skip_cleanup: true
   include:
     # - stage: test
     #   name: test deployment
