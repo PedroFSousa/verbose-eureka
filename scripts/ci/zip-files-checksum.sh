@@ -73,6 +73,7 @@ err "could not get access token - $RES"
 # post the zip and md files to the deployment service
 RES=$(curl -v -k -X POST \
   -H "Content-Type: multipart/form-data" \
+  -H "Connection: keep-alive" \
   -F "md=@README.md" \
   -F "zip=@artifacts/$ZIP_NAME" \
   -w "\nstatus_code=%{http_code}\n" \
