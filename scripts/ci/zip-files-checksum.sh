@@ -46,8 +46,9 @@ mkdir artifacts
 pwd
 ls
 
-
-git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
+# ver com o Gonçalo
+# git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
+git archive --prefix=verbose-eureka_$VERSION/artifacts/$ZIP_NAME $stash
 echo "teste1"
 
 # think it doesnt work past this
