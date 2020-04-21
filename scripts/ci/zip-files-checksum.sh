@@ -46,10 +46,6 @@ pwd
 ls -al
 
 # ver com o Gonçalo
-# git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
-# echo "/////////////////////////////////////////////////////////////////////"
-# echo verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME
-# echo "/////////////////////////////////////////////////////////////////////"
 git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
 echo "teste1"
 
