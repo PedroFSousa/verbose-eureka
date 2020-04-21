@@ -33,11 +33,6 @@ cd $DIST_DIR
 echo "Setting Coral version in settings.py..."
 sed -i s/\<coral_version\>/$VERSION/g lib/settings.py
 stash=$(git stash create)
-# stash1=$(git stash --all)
-echo "///////////////////////////////////////////"
-echo $stash
-echo "((((((((((((((((((((((((((((((((((((((((((("
-# echo $stash1
 
 # empty apache/custom.conf
 echo "# Custom Apache configuration" > custom/apache/conf/custom.conf
@@ -52,6 +47,8 @@ ls -al
 
 # ver com o Gonçalo
 # git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
+
+echo "/////////////////////////////////////////////////////////////////////"
 git archive --prefix=verbose-eureka_$VERSION/artifacts/$ZIP_NAME $stash
 echo "teste1"
 
