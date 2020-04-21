@@ -44,7 +44,7 @@ mkdir artifacts
 
 # works till here
 pwd
-ls
+ls -al
 
 # ver com o Gonçalo
 # git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
