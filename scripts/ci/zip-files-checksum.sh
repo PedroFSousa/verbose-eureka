@@ -52,7 +52,9 @@ echo "teste1"
 # testing files
 
 cd artifacts
+echo "///////////////////// FILE IS HERE ////////////////////////"
 ls
+echo "///////////////////// FILE IS HERE ////////////////////////"
 cd ../
 
 # think it doesnt work past this
