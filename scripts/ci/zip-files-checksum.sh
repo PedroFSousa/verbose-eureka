@@ -58,7 +58,7 @@ echo "///////////////////// FILE IS HERE ////////////////////////"
 cd ../
 
 # think it doesnt work past this
-CHECKSUM=$(md5sum artifacts/$ZIP_NAME)
+CHECKSUM=$(md5sum artifacts/$ZIP_NAME | cut -c -32)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 echo $CHECKSUM
 
