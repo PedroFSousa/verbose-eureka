@@ -49,6 +49,12 @@ ls -al
 git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
 echo "teste1"
 
+# testing files
+
+cd artifacts
+ls
+cd ../
+
 # think it doesnt work past this
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
