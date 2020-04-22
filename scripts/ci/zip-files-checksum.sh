@@ -60,6 +60,7 @@ cd ../
 # think it doesnt work past this
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
+echo $CHECKSUM
 
 # publish new version on the deployment page
 echo "Publishing version $VERSION..."
