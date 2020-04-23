@@ -46,7 +46,7 @@ echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 
 echo "//////////////////////////////////////////"
 echo $TRAVIS_REPO_SLUG
-echo $TRAVIS_REPO_NAME
+echo $TRAVIS_BUILD_DIR
 echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
