@@ -14,14 +14,10 @@ check_status () {
 }
 
 BUILDS_DIR=/home/travis/build/
-# PROJECT_DIR=$BUILDS_DIR/$CI_PROJECT_NAMESPACE
-# PROJECT_DIR=$TRAVIS_BUILD_DIR
-# DIST_DIR=$PROJECT_DIR/$CI_PROJECT_NAME
 DIST_DIR=$TRAVIS_BUILD_DIR
 VERSION=$1
 REPO_NAME=$TRAVIS_REPO_SLUG | cut -f2 -d"/"
 ZIP_NAME=$REPO_NAME.zip
-# testing new URL
 DEPLOYMENT_SERVICE_URL=https://recap-monitor.inesctec.pt
 
 # Install dependencies
@@ -44,15 +40,6 @@ mkdir artifacts
 git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME | cut -c -32)
 echo $CHECKSUM > artifacts/$REPO_NAME-checksum.txt
-
-echo "//////////////////////////////////////////"
-echo $TRAVIS_REPO_SLUG
-echo $TRAVIS_JOB_NAME
-echo $TRAVIS_COMMIT_MESSAGE
-echo $TRAVIS_REPO_SLUG | cut -f1 -d"/"
-echo $TRAVIS_REPO_SLUG | cut -f2 -d"/"
-echo "${$TRAVIS_REPO_SLUG##*\/}"
-echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
 echo "Publishing version $VERSION..."

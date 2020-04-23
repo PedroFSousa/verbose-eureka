@@ -11,7 +11,6 @@ services:
 
 before_install:
   - docker info
-  # - npm install
   - sudo apt-get update
   - sudo apt-get install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
@@ -22,17 +21,13 @@ stages:
   - name: zip-checksum
     if: branch = master
 
-# deploy:
-#   skip_cleanup: true
-
 jobs:
-  # skip_cleanup: true
   include:
-    # - stage: test
-    #   name: test deployment
-    #   script:
-    #     - cd scripts/ci
-    #     - sudo bash ci-tester.sh
+    - stage: test
+      name: test deployment
+      script:
+        - cd scripts/ci
+        - sudo bash ci-tester.sh
     - stage: zip-checksum
       name: create zip-checksum
       script:
