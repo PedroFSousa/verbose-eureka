@@ -48,6 +48,7 @@ echo "//////////////////////////////////////////"
 echo $TRAVIS_REPO_SLUG
 echo $TRAVIS_JOB_NAME
 echo $TRAVIS_COMMIT_MESSAGE
+echo $GITHUB_REPOSITORY
 echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
