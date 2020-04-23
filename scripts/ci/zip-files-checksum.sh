@@ -17,7 +17,6 @@ BUILDS_DIR=/home/travis/build/
 # PROJECT_DIR=$BUILDS_DIR/$CI_PROJECT_NAMESPACE
 # PROJECT_DIR=$TRAVIS_BUILD_DIR
 # DIST_DIR=$PROJECT_DIR/$CI_PROJECT_NAME
-# not working?
 DIST_DIR=$TRAVIS_BUILD_DIR
 VERSION=$1
 ZIP_NAME=verbose-eureka.zip
@@ -41,26 +40,16 @@ echo "# Custom Apache configuration" > custom/apache/conf/custom.conf
 echo "Generating ZIP file and checksum..."
 mkdir artifacts
 
-# works till here
-pwd
-ls -al
-
-# ver com o Gonçalo
 git archive --prefix=verbose-eureka_$VERSION/ -o artifacts/$ZIP_NAME $stash
-echo "teste1"
-
-# testing files
-
-cd artifacts
-echo "///////////////////// FILE IS HERE ////////////////////////"
-ls
-echo "///////////////////// FILE IS HERE ////////////////////////"
-cd ../
-
-# think it doesnt work past this
 CHECKSUM=$(md5sum artifacts/$ZIP_NAME | cut -c -32)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
-echo $CHECKSUM
+
+echo "//////////////////////////////////////////"
+echo $TRAVIS_JOB_NAME
+echo $TRAVIS_COMMIT
+echo $TRAVIS_DIST
+echo $TRAVIS_REPO_SLUG
+echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
 echo "Publishing version $VERSION..."
