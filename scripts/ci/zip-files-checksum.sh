@@ -49,7 +49,7 @@ echo $TRAVIS_REPO_SLUG
 echo $TRAVIS_JOB_NAME
 echo $TRAVIS_COMMIT_MESSAGE
 echo $TRAVIS_REPO_SLUG | cut -f1 -d"/"
-echo "${$TRAVIS_REPO_SLUG##*/}"
+echo "${$TRAVIS_REPO_SLUG##*\/}"
 echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
