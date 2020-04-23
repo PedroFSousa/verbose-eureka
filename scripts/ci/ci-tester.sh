@@ -44,6 +44,7 @@ cd $DIST_DIR
 
 #Create Secrets
 docker swarm init
+
 # To add a worker to this swarm, run the following command:
 
 # docker swarm join --token SWMTKN-1-2rhyr0f27a3l9z6yv7fzdwy1srl660lbygij3joqm7cs8zjzfk-elljnm9uxsd08tbvuzvpsn6q7 10.30.2.169:2377
