@@ -49,6 +49,7 @@ echo $TRAVIS_REPO_SLUG
 echo $TRAVIS_JOB_NAME
 echo $TRAVIS_COMMIT_MESSAGE
 echo $TRAVIS_REPO_SLUG | cut -f1 -d"/"
+echo $TRAVIS_REPO_SLUG | cut -f2 -d"/"
 echo "${$TRAVIS_REPO_SLUG##*\/}"
 echo "//////////////////////////////////////////"
 
