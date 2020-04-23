@@ -45,10 +45,8 @@ CHECKSUM=$(md5sum artifacts/$ZIP_NAME | cut -c -32)
 echo $CHECKSUM > artifacts/verbose-eureka-checksum.txt
 
 echo "//////////////////////////////////////////"
-echo $TRAVIS_JOB_NAME
-echo $TRAVIS_COMMIT
-echo $TRAVIS_DIST
 echo $TRAVIS_REPO_SLUG
+echo $TRAVIS_REPO_NAME
 echo "//////////////////////////////////////////"
 
 # publish new version on the deployment page
