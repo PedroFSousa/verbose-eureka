@@ -15,15 +15,15 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install bash grep
   - if [ -z $VERSION ]; then VERSION=$(echo $TRAVIS_COMMIT_MESSAGE | grep -oP "(?<=##)(.*)(?=##)"); fi
-  # - sleep 15
+  - sleep 15
 
 stages:
   - name: test
   - name: zip-checksum
     if: branch = master
 
-deploy:
-  skip_cleanup: true
+# deploy:
+#   skip_cleanup: true
 
 jobs:
   # skip_cleanup: true
